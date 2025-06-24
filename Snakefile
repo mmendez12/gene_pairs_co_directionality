@@ -6,10 +6,6 @@ CHROMOSOMES = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', '
 rule all:
     input:
         "output/all_chroms_combined.tsv.gz"
-        # expand("output/merged_dist_match_valid/{chromosome}.tsv.gz", chromosome=CHROMOSOMES),
-        # expand("output/valid/{chromosome}.tsv.gz", chromosome=CHROMOSOMES),
-        # "output/pairwise_distances.tsv"
-
 
 rule extract_header:
     input:
@@ -35,7 +31,6 @@ rule split_by_chromosome:
         cat {input.header} $temp_file | gzip > {output}
         rm $temp_file
            """
-
 
 rule h0_up_analysis:
     input:
@@ -108,5 +103,5 @@ rule concat_scores:
 
         # Compress the result
         gzip -c combined.tmp > {output}
-        rm combined.tmp
+        rm output/combined.tmp
         """
